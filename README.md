@@ -13,13 +13,14 @@ This process involves the following steps:
   The Secret Manager add-on is derived from the open source Kubernetes Secrets Store CSI Driver and the Google Secret Manager provider. If you're using the open source Secrets Store CSI Driver to access secrets, you can migrate to the Secret Manager add-on. For information, see Migrate from the existing Secrets Store CSI Driver.
 
 **Steps:**
-  1-Enable the Secret Manager and Google Kubernetes Engine APIs.
+  **1-Enable the Secret Manager and Google Kubernetes Engine APIs.**
   
       gcloud services enable secretmanager.googleapis.com
   
-  2- Install the Secret Manager add-on
-  **You can install the Secret Manager add-on on both Standard clusters as well as Autopilot clusters. **Ensure that Workload Identity Federation for GKE is enabled on the Standard cluster(for this go through gke cluster console and enable ***workload identity**)**. Workload Identity Federation for GKE is enabled by default on an Autopilot cluster. Kubernetes Pods use workload identity to authenticate to the Secret Manager API.**
-  
+  **2- Install the Secret Manager add-on.**
+            
+    You can install the Secret Manager add-on on both Standard clusters as well as Autopilot clusters. **Ensure that Workload Identity Federation for GKE is enabled on the Standard cluster(for this go through gke cluster console and enable ***workload identity**).** Workload Identity Federation for GKE is enabled by default on an Autopilot cluster. Kubernetes Pods use workload identity to authenticate to the Secret Manager API.
+              
   **now install secret manager add-on on exiting cluster using below commands**
      
      gcloud beta container clusters update disearch-cluster \
