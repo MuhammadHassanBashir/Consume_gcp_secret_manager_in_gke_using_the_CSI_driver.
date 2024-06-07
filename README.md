@@ -5,10 +5,10 @@ This repo explains how you can use the Secret Manager add-on to access the secre
 
 This process involves the following steps:
 
-  1-Install the Secret Manager add-on on a new or existing GKE cluster.
-  2-Configure applications to authenticate to the Secret Manager API.
-  3-Define which secrets to mount onto Kubernetes Pods using a SecretProviderClass YAML file.
-  4-Create a volume where the secrets will be mounted. After the volume is attached, applications in the container can access the data in the container file system.
+    1-Install the Secret Manager add-on on a new or existing GKE cluster.
+    2-Configure applications to authenticate to the Secret Manager API.
+    3-Define which secrets to mount onto Kubernetes Pods using a SecretProviderClass YAML file.
+    4-Create a volume where the secrets will be mounted. After the volume is attached, applications in the container can access the data in the container file system.
 
   The Secret Manager add-on is derived from the open source Kubernetes Secrets Store CSI Driver and the Google Secret Manager provider. If you're using the open source Secrets Store CSI Driver to access secrets, you can migrate to the Secret Manager add-on. For information, see Migrate from the existing Secrets Store CSI Driver.
 
