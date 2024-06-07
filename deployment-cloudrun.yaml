@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: airflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      serviceAccountName: disearch-serviceaccount
+      initContainers:
+      - name: init-secrets
+        image: busybox
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            export DB_HOST=$(cat /var/secrets/db_host)
+            export DB_PASSWORD=$(cat /var/secrets/db_password)
+            export DB_USER=$(cat /var/secrets/db_user)
+            echo "DB_HOST=${DB_HOST}" > /etc/nginx/env.conf
+            echo "DB_PASSWORD=${DB_PASSWORD}" >> /etc/nginx/env.conf
+            echo "DB_USER=${DB_USER}" >> /etc/nginx/env.conf
+        volumeMounts:
+          - mountPath: "/var/secrets"
+            name: mysecret
+          - mountPath: "/etc/nginx"
+            name: env-config
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        envFrom:
+          - configMapRef:
+              name: nginx-env
+        volumeMounts:
+          - mountPath: "/var/secrets"
+            name: mysecret
+      volumes:
+      - name: mysecret
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "disearch-secret-provider-class"
+      - name: env-config
+        emptyDir: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: airflow
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+
