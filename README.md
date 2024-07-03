@@ -77,6 +77,10 @@ This process involves the following steps:
             path: "db_password"
           - resourceName: "projects/world-learning-400909/secrets/DB_USER/versions/latest"
             path: "db_user"  
+
+    verification:
+
+    kubectl get secretproviderclass -n airflow
    
   5-  Configure a volume where the secrets will be mounted
   
