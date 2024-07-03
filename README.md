@@ -85,6 +85,12 @@ This process involves the following steps:
     verification:
 
     kubectl get secretproviderclass -n airflow
+
+    verify IAM policy bind members
+
+    gcloud secrets get-iam-policy DB_HOST --project=714482271007
+    gcloud secrets get-iam-policy DB_PASSWORD --project=714482271007
+    gcloud secrets get-iam-policy DB_USER --project=714482271007
    
   5-  Configure a volume where the secrets will be mounted
   
