@@ -64,6 +64,12 @@ This process involves the following steps:
     --role=roles/secretmanager.secretAccessor \
     --member=principal://iam.googleapis.com/projects/22927148231/locations/global/workloadIdentityPools/world-learning-400909.svc.id.goog/subject/ns/airflow/sa/disearch-serviceaccount 
 
+    verify IAM policy bind members
+
+    gcloud secrets get-iam-policy DB_HOST --project=714482271007     ----> use project no here
+    gcloud secrets get-iam-policy DB_PASSWORD --project=714482271007
+    gcloud secrets get-iam-policy DB_USER --project=714482271007
+
   4- Define which secrets to mount
 
     apiVersion: secrets-store.csi.x-k8s.io/v1
@@ -86,11 +92,6 @@ This process involves the following steps:
 
     kubectl get secretproviderclass -n airflow
 
-    verify IAM policy bind members
-
-    gcloud secrets get-iam-policy DB_HOST --project=714482271007
-    gcloud secrets get-iam-policy DB_PASSWORD --project=714482271007
-    gcloud secrets get-iam-policy DB_USER --project=714482271007
    
   5-  Configure a volume where the secrets will be mounted
   
