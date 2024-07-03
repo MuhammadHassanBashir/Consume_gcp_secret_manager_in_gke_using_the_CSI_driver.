@@ -42,6 +42,10 @@ This process involves the following steps:
    
     kubectl apply -f service-account.yaml
 
+    Verfication:
+    
+    kubectl get sa -n airflow
+
     2- Create an Identity and Access Management (IAM) allow policy for the secret in Secret Manager. 
     
     Create an IAM allow policy that references the new Kubernetes ServiceAccount and grant it permission to access the secret:
